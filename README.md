@@ -1,1 +1,1 @@
-Squirrel - a simple JavaScript state-management library
+Sqrrl - a simple state-management library

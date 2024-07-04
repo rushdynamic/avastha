@@ -1,0 +1,13 @@
+{
+	"name": "sqrrl",
+	"version": "1.0.0",
+	"description": "A simple state-management library",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"/dist"
+	],
+	"devDependencies": {
+		"@types/node": "^20.14.9"
+	}
+}
