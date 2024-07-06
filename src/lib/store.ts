@@ -1,28 +1,41 @@
+import { Action } from './types';
+
 let store: {};
 let subscribers: ((arg: {}) => any)[];
-let reducers = [];
+let rootReducer: (state: {}, action: Action) => any;
+let isInitialized = false;
 
-const createStore = (initialValue: {} = {}) => {
-	if (!store) store = initialValue;
-	return { dispatch, subscribe };
-};
-
-const defaultReducer = (state: any, action: any) => {
-	// apply all reducers here
+const defaultReducer = (state: {}, _action: Action) => {
 	return state;
 };
 
+const createStore = (initialValue: {} = {}, reducer = defaultReducer) => {
+	if (!store) store = initialValue;
+	rootReducer = reducer;
+	isInitialized = true;
+};
+
 const subscribe = (subscriber: (arg: {}) => any) => {
+	if (!isInitialized) {
+		console.warn('Store was not initialized');
+		return;
+	}
+
 	if (!subscribers) subscribers = [];
 	subscribers.push(subscriber);
 };
 
-const dispatch = (action: any) => {
+const dispatch = (action: Action) => {
+	if (!isInitialized) {
+		console.warn('Store was not initialized');
+		return;
+	}
+
 	let prevState = store;
-	let currentState = defaultReducer({ ...prevState }, action);
+	let currentState = rootReducer({ ...prevState }, action);
 	subscribers.forEach((sub) => {
 		sub(currentState);
 	});
 };
 
-export { createStore };
+export { createStore, subscribe, dispatch };
