@@ -1,13 +1,10 @@
+import defaultReducer from './reducer';
 import { Action } from './types';
 
 let store: {};
 let subscribers: ((arg: {}) => any)[];
 let rootReducer: (state: {}, action: Action) => any;
 let isInitialized = false;
-
-const defaultReducer = (state: {}, _action: Action) => {
-	return state;
-};
 
 const createStore = (initialValue: {} = {}, reducer = defaultReducer) => {
 	if (!store) store = initialValue;
