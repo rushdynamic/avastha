@@ -11,5 +11,7 @@ subscribe((state) => {
 });
 
 dispatch({ type: 'increment', payload: { by: 3 } });
+dispatch({ type: 'increment', payload: { by: 5 } });
+dispatch({ type: 'decrement', payload: { by: 3 } });
 
 console.log('Updated state:', myValue);

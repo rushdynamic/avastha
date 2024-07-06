@@ -31,10 +31,10 @@ const dispatch = (action: Action) => {
 		return;
 	}
 
-	let prevState = store;
-	let currentState = rootReducer({ ...prevState }, action);
+	let prevState = { ...store };
+	store = rootReducer(prevState, action);
 	subscribers.forEach((sub) => {
-		sub(currentState);
+		sub(store);
 	});
 };
 
