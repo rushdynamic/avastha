@@ -1,18 +1,21 @@
 import defaultReducer from './reducer';
-import { Action } from './types';
+import { Action, Reducer, State, Subscriber } from './types';
 
 let store: {};
-let subscribers: ((arg: {}) => any)[];
-let rootReducer: (state: {}, action: Action) => any;
+let subscribers: Subscriber[];
+let rootReducer: Reducer;
 let isInitialized = false;
 
-const createStore = (initialValue: {} = {}, reducer = defaultReducer) => {
+const createStore = (
+	initialValue: State = {},
+	reducer: Reducer = defaultReducer
+) => {
 	if (!store) store = initialValue;
 	rootReducer = reducer;
 	isInitialized = true;
 };
 
-const subscribe = (subscriber: (arg: {}) => any) => {
+const subscribe = (subscriber: Subscriber) => {
 	if (!isInitialized) {
 		console.warn('Store was not initialized');
 		return;

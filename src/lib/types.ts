@@ -3,4 +3,16 @@ interface Action {
 	payload: any;
 }
 
-export { Action };
+interface State {
+	[key: string]: any;
+}
+
+interface Reducer {
+	(state: State, action: Action): State;
+}
+
+interface Subscriber {
+	(state: State): void;
+}
+
+export { State, Action, Reducer, Subscriber };
