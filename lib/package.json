@@ -1,7 +1,7 @@
 {
 	"name": "@rushdynamic/sqrrl",
 	"author": "Gokul Syam (https://rushdynamic.com/)",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "A simple state management library for React",
 	"main": "./dist/SqrrlWrapper.js",
 	"types": "./dist/types.ts",
@@ -12,6 +12,10 @@
 		"build": "tsc",
 		"postbuild": "copyfiles -u 1 ./src/types.ts dist",
 		"dev": "nodemon ../examples/basic-example/index.ts"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/rushdynamic/sqrrl.git"
 	},
 	"devDependencies": {
 		"@types/node": "^20.14.9",
