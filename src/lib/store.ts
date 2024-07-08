@@ -25,6 +25,14 @@ const subscribe = (subscriber: Subscriber) => {
 	subscribers.push(subscriber);
 };
 
+const unsubscribe = (subscriber: Subscriber) => {
+	if (!isInitialized) {
+		console.warn('Store was not initialized');
+		return;
+	}
+	subscribers = subscribers.filter((sub) => sub != subscriber);
+};
+
 const dispatch = (action: Action) => {
 	if (!isInitialized) {
 		console.warn('Store was not initialized');
@@ -38,4 +46,4 @@ const dispatch = (action: Action) => {
 	});
 };
 
-export { createStore, subscribe, dispatch };
+export { createStore, subscribe, unsubscribe, dispatch };
