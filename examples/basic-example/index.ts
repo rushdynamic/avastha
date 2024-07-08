@@ -1,4 +1,4 @@
-import { createStore, dispatch, subscribe } from '../../src/lib/store';
+import { createStore, dispatch, subscribe } from '../../lib/src/store';
 import rootReducer from './reducers/rootReducer';
 
 let myValue: {} = { value: 1 };
