@@ -15,4 +15,10 @@ interface Subscriber {
 	(state: State): void;
 }
 
-export { State, Action, Reducer, Subscriber };
+interface SqrrlWrapper {
+	initialState: State;
+	rootReducer: Reducer;
+	children: any;
+}
+
+export { State, Action, Reducer, Subscriber, SqrrlWrapper };
