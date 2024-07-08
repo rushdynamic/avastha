@@ -1,14 +1,16 @@
 {
-	"name": "sqrrl",
+	"name": "@rushdynamic/sqrrl",
+	"author": "Gokul Syam (https://rushdynamic.com/)",
 	"version": "1.0.0",
-	"description": "A simple state-management library",
+	"description": "A simple state management library for React",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"files": [
 		"/dist"
 	],
 	"scripts": {
-		"dev": "nodemon ./examples/basic-example/index.ts"
+		"build": "tsc",
+		"dev": "nodemon ../examples/basic-example/index.ts"
 	},
 	"devDependencies": {
 		"@types/node": "^20.14.9",
