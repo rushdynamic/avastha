@@ -1,4 +1,4 @@
-import { Action, State } from '../../../lib/types';
+import { Action, State } from '../../../src/lib/types';
 import decrement from './decrement';
 import increment from './increment';
 

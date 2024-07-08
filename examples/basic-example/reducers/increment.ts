@@ -1,4 +1,4 @@
-import { State } from '../../../lib/types';
+import { State } from '../../../src/lib/types';
 
 const increment = (state: State, payload: State) => {
 	state.value += payload.by;

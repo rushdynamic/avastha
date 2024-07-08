@@ -10,6 +10,9 @@ const createStore = (
 	initialValue: State = {},
 	reducer: Reducer = defaultReducer
 ) => {
+	if (isInitialized) {
+		return;
+	}
 	if (!store) store = initialValue;
 	rootReducer = reducer;
 	isInitialized = true;
@@ -20,7 +23,6 @@ const subscribe = (subscriber: Subscriber) => {
 		console.warn('Store was not initialized');
 		return;
 	}
-
 	if (!subscribers) subscribers = [];
 	subscribers.push(subscriber);
 };
@@ -38,7 +40,6 @@ const dispatch = (action: Action) => {
 		console.warn('Store was not initialized');
 		return;
 	}
-
 	let prevState = { ...store };
 	store = rootReducer(prevState, action);
 	subscribers.forEach((sub) => {

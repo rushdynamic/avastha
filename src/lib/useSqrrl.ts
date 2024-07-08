@@ -8,12 +8,12 @@ const useSqrrl = (initialState: State, rootReducer: Reducer) => {
 	}, []);
 
 	const useSqrrlState = (stateKey: string) => {
-		const [currState, setCurrState] = useState(initialState[stateKey]);
+		const [currState, setCurrState] = useState(initialState);
 		subscribe(setCurrState);
-		return currState[stateKey];
+		return currState?.[stateKey];
 	};
 
-	return useSqrrlState;
+	return { useSqrrlState, dispatch };
 };
 
 export default useSqrrl;

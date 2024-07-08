@@ -8,7 +8,7 @@
 		"/dist"
 	],
 	"scripts": {
-		"dev": "nodemon ./src/examples/basic-example/index.ts"
+		"dev": "nodemon ./examples/basic-example/index.ts"
 	},
 	"devDependencies": {
 		"@types/node": "^20.14.9",
