@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import SomeOtherComponent from './SomeOtherComponent.jsx';
-import SqrrlWrapper from '../../../src/lib/SqrrlWrapper.tsx';
+import SqrrlWrapper from '../../../lib/src/SqrrlWrapper.tsx';
 import rootReducer from './reducer.js';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
