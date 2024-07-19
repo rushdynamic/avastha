@@ -1,8 +1,8 @@
 {
 	"name": "@rushdynamic/sqrrl",
 	"author": "Gokul Syam (https://rushdynamic.com/)",
-	"version": "1.0.3",
-	"description": "A simple state management library for React",
+	"version": "1.0.4",
+	"description": "A minimal state management library for React",
 	"main": "./dist/SqrrlWrapper.js",
 	"types": "./dist/types.ts",
 	"files": [
