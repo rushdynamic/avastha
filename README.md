@@ -2,7 +2,8 @@
 
 <img src="https://github.com/user-attachments/assets/6280d6d6-5786-4ea8-bae4-38bc283f8c27" alt="drawing" width="300"/>
 
-A minimal state management library for React.
+A minimal state management library for React.\
+**WARNING: This was written primarily for learning purposes, and is NOT production ready.**
 
 # Usage
 
