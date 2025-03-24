@@ -1,12 +1,12 @@
 import { useSyncExternalStore } from "react";
-import { Initializer, Listener, Updater, Selector } from "./types";
+import { Initializer, Listener, Selector, SetState } from "./types";
 
 const create = <State>(initializer: Initializer<State>) => {
 
     let state: State;
     const listeners = new Set<Listener>();
 
-    const setState = (updater: Updater<State>) => {
+    const setState: SetState<State> = (updater) => {
         const partiallyUpdatedState = updater(state);
         if (partiallyUpdatedState !== state) { // TODO: improve this comparison
             state = { ...state, ...partiallyUpdatedState };
@@ -21,7 +21,7 @@ const create = <State>(initializer: Initializer<State>) => {
 
     state = initializer(setState);
 
-    const useStore = (selector: Selector<State>) => {
+    const useStore = <Result>(selector: Selector<State, Result>): Result => {
         return useSyncExternalStore(
             subscribe,
             () => selector(state)
