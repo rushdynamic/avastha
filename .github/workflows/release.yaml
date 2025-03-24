@@ -1,4 +1,4 @@
-name: Semantic Release
+name: Semantic Release -- package.json version bump
 
 on:
   push:
@@ -16,16 +16,13 @@ jobs:
 
       - name: Install Dependencies
         working-directory: lib
-        run: |
-            npm install
-            npm list conventional-changelog-conventionalcommits || npm install conventional-changelog-conventionalcommits
+        run: npm install
       
-      # Change the working directory to the 'lib' subdirectory
       - name: Semantic Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         uses: cycjimmy/semantic-release-action@v4
         with:
-          # Specify the working directory
+          # Change the working directory to the 'lib' subdirectory
           working_directory: lib
