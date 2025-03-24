@@ -1,0 +1,25 @@
+name: Semantic Release
+
+on:
+  push:
+    branches: 
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      # Change the working directory to the 'lib' subdirectory
+      - name: Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          # Specify the working directory
+          working_directory: lib
