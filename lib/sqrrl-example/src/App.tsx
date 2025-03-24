@@ -1,10 +1,10 @@
-import useCounterStore from "./Store"
+import useCounterStore from "./CounterStore"
 
 function App() {
 
-  const count = useCounterStore((state: any) => state.count);
-  const increment = useCounterStore((state: any) => state.increment);
-  const decrement = useCounterStore((state: any) => state.decrement);
+  const count = useCounterStore((state) => state.count);
+  const increment = useCounterStore((state) => state.increment);
+  const decrement = useCounterStore((state) => state.decrement);
 
   return (
     <>
