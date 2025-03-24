@@ -13,6 +13,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+      - name: Install Dependencies
+        working-directory: lib
+        run: |
+            npm install
+            npm list conventional-changelog-conventionalcommits || npm install conventional-changelog-conventionalcommits
       
       # Change the working directory to the 'lib' subdirectory
       - name: Semantic Release
