@@ -1,24 +1,5 @@
-interface Action {
-	type: string;
-	payload: any;
-}
-
-interface State {
-	[key: string]: any;
-}
-
-interface Reducer {
-	(state: State, action: Action): State;
-}
-
-interface Subscriber {
-	(state: State): void;
-}
-
-interface SqrrlWrapperProps {
-	initialState: State;
-	rootReducer: Reducer;
-	children: any;
-}
-
-export { State, Action, Reducer, Subscriber, SqrrlWrapperProps };
+type Updater<State> = (state: State) => Partial<State>;
+export type Selector<State, Result> = (state: State) => Result;
+export type Listener = () => void;
+export type SetState<State> = (updater: Updater<State>) => void;
+export type Initializer<State> = (setState: SetState<State>) => State;
