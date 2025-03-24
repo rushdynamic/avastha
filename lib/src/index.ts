@@ -1,5 +1,8 @@
+import { useSyncExternalStore } from "react";
+
 type Updater<State> = (state: State) => State;
 type Initializer<State> = (setState: (updater: Updater<State>) => void) => State;
+type Selector<State> = (state: State) => State;
 type Listener = () => void;
 
 const create = <State>(initializer: Initializer<State>) => {
@@ -21,4 +24,15 @@ const create = <State>(initializer: Initializer<State>) => {
     }
 
     state = initializer(setState);
+
+    const useStore = (selector: Selector<State>) => {
+        return useSyncExternalStore(
+            subscribe,
+            () => selector(state)
+        )
+    }
+
+    return useStore;
 }
+
+export default create;
