@@ -1,9 +1,5 @@
 import { useSyncExternalStore } from "react";
-
-type Updater<State> = (state: State) => State;
-type Initializer<State> = (setState: (updater: Updater<State>) => void) => State;
-type Selector<State> = (state: State) => State;
-type Listener = () => void;
+import { Initializer, Listener, Updater, Selector } from "./types";
 
 const create = <State>(initializer: Initializer<State>) => {
 
