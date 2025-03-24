@@ -1,4 +1,4 @@
-type Updater<State> = (state: State) => State;
+type Updater<State> = (state: State) => Partial<State>;
 export type Selector<State, Result> = (state: State) => Result;
 export type Listener = () => void;
 export type SetState<State> = (updater: Updater<State>) => void;
