@@ -10,6 +10,10 @@
   ],
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rushdynamic/avastha.git"
+  },
   "scripts": {
     "dev": "vite build --watch",
     "build": "tsc -b && vite build",
