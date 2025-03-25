@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/rushdynamic/avastha/compare/v0.4.0...v0.5.0) (2025-03-25)
+
+
+### Features
+
+* testing version upgrade inside lib ([9c473f2](https://github.com/rushdynamic/avastha/commit/9c473f29750fbdfed43cde4679edd568b6476d6b))
+
 ## [0.4.0](https://github.com/rushdynamic/avastha/compare/avastha-v0.3.0...avastha-v0.4.0) (2025-03-25)
 
 
