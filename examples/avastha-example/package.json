@@ -10,9 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "avastha": "file:../../lib",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "avastha": "file:.."
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
