@@ -6,7 +6,9 @@
             "bump-minor-pre-major": false,
             "bump-patch-for-minor-pre-major": false,
             "draft": false,
-            "prerelease": false
+            "prerelease": false,
+            "tag-prefix": "avastha-v",
+            "merge-commit-regex": "^Merge pull request #\\\\d+ from"
         }
     }
 }
