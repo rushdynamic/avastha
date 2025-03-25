@@ -10,7 +10,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: "src/index.ts",
-      name: "sqrrl",
+      name: "avastha",
       fileName: "index",
     },
     emptyOutDir: true,
