@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <span>sqrrl example: {count}</span>
+      <span>avastha example: {count}</span>
       <br />
       <button onClick={increment}>Increment</button>
       <button onClick={decrement}>Decrement</button>
