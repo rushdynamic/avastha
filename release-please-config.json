@@ -3,10 +3,13 @@
         "lib": {
             "changelog-path": "CHANGELOG.md",
             "release-type": "node",
+            "changelog-type": "github",
             "bump-minor-pre-major": false,
             "bump-patch-for-minor-pre-major": false,
             "draft": false,
-            "prerelease": false
+            "prerelease": false,
+            "include-v-in-tag": true,
+            "include-component-in-tag": false
         }
     }
 }
