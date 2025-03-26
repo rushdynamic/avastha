@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/rushdynamic/avastha/compare/v0.4.0...v0.4.1) (2025-03-26)
+
+
+### Bug Fixes
+
+* state equality check ([#21](https://github.com/rushdynamic/avastha/issues/21)) ([786f8b5](https://github.com/rushdynamic/avastha/commit/786f8b550cd30ab0f35da3f20edda5ba03e23e0a))
+
 ## [0.4.0](https://github.com/rushdynamic/avastha/compare/avastha-v0.3.0...avastha-v0.4.0) (2025-03-25)
 
 
