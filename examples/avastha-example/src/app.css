@@ -1,0 +1,12 @@
+hr {
+    margin-top: 24px;
+}
+
+body {
+    font-family: 'sans-serif';
+
+    button {
+        margin: 0 2px;
+        padding: 4px;
+    }
+}

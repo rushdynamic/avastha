@@ -1,9 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
+import BasicExample from './basic-example/BasicExample.tsx'
+import NestedStateExample from './nested-state-example/NestedStateExample.tsx'
+import "./app.css"
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <BasicExample />
+    <hr />
+    <NestedStateExample />
   </StrictMode>,
 )
