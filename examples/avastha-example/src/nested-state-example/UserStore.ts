@@ -1,4 +1,4 @@
-import create from "avastha";
+import { create } from "avastha";
 
 type UserFullName = {
     firstName: string,
