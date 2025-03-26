@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/rushdynamic/avastha/compare/v0.5.0...v0.5.1) (2025-03-26)
+
+
+### Bug Fixes
+
+* deep object comparison ([#25](https://github.com/rushdynamic/avastha/issues/25)) ([444c9cf](https://github.com/rushdynamic/avastha/commit/444c9cf7981d8271958df41699472f3de652e361))
+
 ## [0.5.0](https://github.com/rushdynamic/avastha/compare/v0.4.1...v0.5.0) (2025-03-26)
 
 
