@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.3](https://github.com/rushdynamic/avastha/compare/v0.5.2...v0.5.3) (2025-03-26)
+
+
+### Bug Fixes
+
+* make react and react-dom dev and peer dependencies ([5926a87](https://github.com/rushdynamic/avastha/commit/5926a8743e9a5ef8ef7cb5ed6a94a50b37d1d4cb))
+
 ## [0.5.2](https://github.com/rushdynamic/avastha/compare/v0.5.1...v0.5.2) (2025-03-26)
 
 
