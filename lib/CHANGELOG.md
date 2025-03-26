@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.4](https://github.com/rushdynamic/avastha/compare/v0.5.3...v0.5.4) (2025-03-26)
+
+
+### Bug Fixes
+
+* make params optional in debug middleware ([5cd44b7](https://github.com/rushdynamic/avastha/commit/5cd44b7ad75921f4bd696e91aab855765f562f0b))
+
 ## [0.5.3](https://github.com/rushdynamic/avastha/compare/v0.5.2...v0.5.3) (2025-03-26)
 
 
