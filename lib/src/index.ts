@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from "react";
-import { Initializer, Listener, Selector, SetState } from "./types";
+import { Initializer, Listener, Selector, SetState, DebugFn } from "./types";
 
-const createStore = <State>(initializer: Initializer<State>) => {
+const createStore = <State>(initializer: Initializer<State>, debugFn?: DebugFn<State>) => {
 
     let state: State;
     const listeners = new Set<Listener>();
@@ -10,6 +10,9 @@ const createStore = <State>(initializer: Initializer<State>) => {
         const partiallyUpdatedState = updater(state);
         if (!Object.keys(partiallyUpdatedState).every((k) => partiallyUpdatedState[k as keyof State] === state[k as keyof State])) {
             const updatedState = { ...state, ...partiallyUpdatedState };
+            if (debugFn) {
+                debugFn(state, updatedState, partiallyUpdatedState);
+            }
             state = updatedState;
             listeners.forEach((listener) => listener());
         }
@@ -33,3 +36,4 @@ const createStore = <State>(initializer: Initializer<State>) => {
 }
 
 export { createStore as create };
+export * as debug from "./utils/debug"

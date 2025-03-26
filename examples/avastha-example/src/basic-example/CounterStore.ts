@@ -1,4 +1,4 @@
-import create from "avastha";
+import { create, debug } from "avastha";
 
 type CounterState = {
     count: number,
@@ -12,6 +12,6 @@ const useCounterStore = create<CounterState>(setState => {
         increment: () => setState((state) => ({ count: state.count + 1 })),
         decrement: () => setState((state) => ({ count: state.count - 1 })),
     }
-})
+}, debug.log)
 
 export default useCounterStore
