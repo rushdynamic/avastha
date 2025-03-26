@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/rushdynamic/avastha/compare/v0.4.1...v0.5.0) (2025-03-26)
+
+
+### Features
+
+* basic debug logging middleware ([#23](https://github.com/rushdynamic/avastha/issues/23)) ([42dd072](https://github.com/rushdynamic/avastha/commit/42dd072e96e99fbb94e09ca91edb34b321c69b6b))
+
 ## [0.4.1](https://github.com/rushdynamic/avastha/compare/v0.4.0...v0.4.1) (2025-03-26)
 
 
