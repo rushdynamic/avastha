@@ -1,15 +1,16 @@
 import { useSyncExternalStore } from "react";
 import { Initializer, Listener, Selector, SetState } from "./types";
 
-const create = <State>(initializer: Initializer<State>) => {
+const createStore = <State>(initializer: Initializer<State>) => {
 
     let state: State;
     const listeners = new Set<Listener>();
 
     const setState: SetState<State> = (updater) => {
         const partiallyUpdatedState = updater(state);
-        if (partiallyUpdatedState !== state) { // TODO: improve this comparison
-            state = { ...state, ...partiallyUpdatedState };
+        if (!Object.keys(partiallyUpdatedState).every((k) => partiallyUpdatedState[k as keyof State] === state[k as keyof State])) {
+            const updatedState = { ...state, ...partiallyUpdatedState };
+            state = updatedState;
             listeners.forEach((listener) => listener());
         }
     }
@@ -31,4 +32,4 @@ const create = <State>(initializer: Initializer<State>) => {
     return useStore;
 }
 
-export default create;
+export { createStore as create };
