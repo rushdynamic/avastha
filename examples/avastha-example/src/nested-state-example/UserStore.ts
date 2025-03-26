@@ -1,4 +1,4 @@
-import { create } from "avastha";
+import { create, debug } from "avastha";
 
 type UserFullName = {
     firstName: string,
@@ -29,6 +29,6 @@ const useUserStore = create<UserState>(setState => {
             user: { ...state.user, name: { ...state.user.name, lastName: lastName } }
         }))
     }
-})
+}, debug.log)
 
 export default useUserStore
