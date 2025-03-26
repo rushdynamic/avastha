@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.2](https://github.com/rushdynamic/avastha/compare/v0.5.1...v0.5.2) (2025-03-26)
+
+
+### Bug Fixes
+
+* stricter type in deep equals ([#27](https://github.com/rushdynamic/avastha/issues/27)) ([9cc1fa5](https://github.com/rushdynamic/avastha/commit/9cc1fa5e0449a6434a3d205c47af339228ce7a47))
+
 ## [0.5.1](https://github.com/rushdynamic/avastha/compare/v0.5.0...v0.5.1) (2025-03-26)
 
 
