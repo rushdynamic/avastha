@@ -12,7 +12,7 @@ const createStore = <State>(initializer: Initializer<State>, debugFn?: DebugFn<S
         if (!compareUtils.deepEqual<State>(partiallyUpdatedState, state)) {
             const updatedState = { ...state, ...partiallyUpdatedState };
             if (debugFn) {
-                debugFn(state, updatedState, partiallyUpdatedState);
+                debugFn(updatedState, state, partiallyUpdatedState);
             }
             state = updatedState;
             listeners.forEach((listener) => listener());
