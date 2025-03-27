@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from "react";
+import { useSyncExternalStore, useRef } from "react";
 import { Initializer, Listener, Selector, SetState, DebugFn } from "./types";
 import * as compareUtils from "./utils/compare";
 
@@ -7,8 +7,8 @@ const createStore = <State>(initializer: Initializer<State>, debugFn?: DebugFn<S
     let state: State;
     const listeners = new Set<Listener>();
 
-    const setState: SetState<State> = (updater) => {
-        const partiallyUpdatedState = updater(state);
+    const setState: SetState<State> = (action) => {
+        const partiallyUpdatedState = action(state);
         if (!compareUtils.deepEqual<State>(partiallyUpdatedState, state)) {
             const updatedState = { ...state, ...partiallyUpdatedState };
             if (debugFn) {
@@ -27,9 +27,19 @@ const createStore = <State>(initializer: Initializer<State>, debugFn?: DebugFn<S
     state = initializer(setState);
 
     const useStore = <Result>(selector: Selector<State, Result>): Result => {
+        const prevSelectionRef = useRef<Result>(selector(state));
         return useSyncExternalStore(
             subscribe,
-            () => selector(state)
+            () => {
+                const newSelection = selector(state);
+                // TODO: figure out if deep comparison is required here or not
+                // What if the user is trying to select a deeply nested map? Won't shallow comparison always return false?
+                // TODO: check out performance hit with doing deep comparison
+                if (compareUtils.deepEqual(newSelection, prevSelectionRef.current)) {
+                    return prevSelectionRef.current;
+                }
+                return newSelection;
+            }
         )
     }
 
