@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.5](https://github.com/rushdynamic/avastha/compare/v0.5.4...v0.5.5) (2025-03-27)
+
+
+### Bug Fixes
+
+* use deep comparison in useSyncExternalStore selector ([31bc1a0](https://github.com/rushdynamic/avastha/commit/31bc1a03e58fc99358f096e4e960b99315f420ec))
+
 ## [0.5.4](https://github.com/rushdynamic/avastha/compare/v0.5.3...v0.5.4) (2025-03-26)
 
 
