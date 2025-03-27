@@ -38,6 +38,7 @@ const createStore = <State>(initializer: Initializer<State>, debugFn?: DebugFn<S
                 if (compareUtils.deepEqual(newSelection, prevSelectionRef.current)) {
                     return prevSelectionRef.current;
                 }
+                prevSelectionRef.current = newSelection;
                 return newSelection;
             }
         )
