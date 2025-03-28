@@ -4,7 +4,7 @@ import FirstName from "./FirstName";
 import LastName from "./LastName";
 
 export default function NestedStateExample() {
-    const setFirstName = useUserStore((state) => state.setUserFirstName);
+    const setFirstName = useUserStore((state) => state.setUserFirstNameMutable);
     const setLastName = useUserStore((state) => state.setUserLastName);
     const inputElementRef = useRef<HTMLInputElement>(null);
     const firstNameRef = useRef<HTMLInputElement>(null);

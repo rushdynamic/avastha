@@ -13,10 +13,11 @@ type User = {
 type UserState = {
     user: User,
     setUserFirstName: (firstName: string) => void,
-    setUserLastName: (lastName: string) => void
+    setUserLastName: (lastName: string) => void,
+    setUserFirstNameMutable: (firstName: string) => void,
 }
 
-const useUserStore = create<UserState>(setState => {
+const useUserStore = create<UserState>((setState, updateState) => {
     return {
         user: {
             name: { firstName: "Rush", lastName: "Dynamic" },
@@ -27,7 +28,8 @@ const useUserStore = create<UserState>(setState => {
         })),
         setUserLastName: (lastName) => setState((state) => ({
             user: { ...state.user, name: { ...state.user.name, lastName: lastName } }
-        }))
+        })),
+        setUserFirstNameMutable: (firstName) => updateState((state) => { state.user.name.firstName = firstName }),
     }
 }, debug.log)
 

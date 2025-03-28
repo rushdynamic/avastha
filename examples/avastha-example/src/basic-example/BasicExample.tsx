@@ -3,6 +3,7 @@ import useCounterStore from "./CounterStore"
 function App() {
   const count = useCounterStore((state) => state.count);
   const increment = useCounterStore((state) => state.increment);
+  const incrementMutable = useCounterStore((state) => state.incrementMutable);
   const decrement = useCounterStore((state) => state.decrement);
 
   return (
@@ -13,6 +14,7 @@ function App() {
         {count}
       </p>
       <button onClick={increment}>Increment</button>
+      <button onClick={incrementMutable}>Increment by mutating</button>
       <button onClick={decrement}>Decrement</button>
     </>
   )

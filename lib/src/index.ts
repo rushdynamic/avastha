@@ -22,18 +22,26 @@ const createStore = <State>(initializer: Initializer<State>, debugFn?: DebugFn<S
 
     // Mutable state updation
     const updateState: UpdateState<State> = (action) => {
-        let changed = false;
-        const proxyState = new Proxy(state as object, {
+        let changed = { status: false };
+        const proxyStateHandler = {
+            get(target: any, key: any) {
+                if (typeof target[key] === 'object' && target[key] !== null) {
+                    return new Proxy(target[key], proxyStateHandler)
+                } else {
+                    return target[key];
+                }
+            },
             set(target: any, prop: string, value: any) {
                 if (target[prop] !== value) {
-                    changed = true;
+                    changed.status = true;
                 }
                 target[prop] = value;
                 return true;
             }
-        })
+        }
+        const proxyState = new Proxy(state as object, proxyStateHandler)
         action(proxyState);
-        if (changed) {
+        if (changed.status) {
             if (debugFn) {
                 // We lose the prev and updated state details with immutable updates
                 debugFn(state);
