@@ -1,5 +1,6 @@
 import { useSyncExternalStore, useRef } from "react";
 import { Initializer, Listener, Selector, SetState, UpdateState, DebugFn } from "./types";
+import getProxyWithStatus from "./proxy";
 import * as compareUtils from "./utils/compare";
 
 const createStore = <State>(initializer: Initializer<State>, debugFn?: DebugFn<State>) => {
@@ -22,24 +23,7 @@ const createStore = <State>(initializer: Initializer<State>, debugFn?: DebugFn<S
 
     // Mutable state updation
     const updateState: UpdateState<State> = (action) => {
-        let changed = { status: false };
-        const proxyStateHandler = {
-            get(target: any, key: any) {
-                if (typeof target[key] === 'object' && target[key] !== null) {
-                    return new Proxy(target[key], proxyStateHandler)
-                } else {
-                    return target[key];
-                }
-            },
-            set(target: any, prop: string, value: any) {
-                if (target[prop] !== value) {
-                    changed.status = true;
-                }
-                target[prop] = value;
-                return true;
-            }
-        }
-        const proxyState = new Proxy(state as object, proxyStateHandler)
+        const { proxyState, changed } = getProxyWithStatus(state);
         action(proxyState);
         if (changed.status) {
             if (debugFn) {
