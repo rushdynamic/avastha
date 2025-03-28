@@ -1,5 +1,5 @@
 import { useSyncExternalStore, useRef } from "react";
-import { Initializer, Listener, Selector, SetState, DebugFn } from "./types";
+import { Initializer, Listener, Selector, SetState, UpdateState, DebugFn } from "./types";
 import * as compareUtils from "./utils/compare";
 
 const createStore = <State>(initializer: Initializer<State>, debugFn?: DebugFn<State>) => {
@@ -7,6 +7,7 @@ const createStore = <State>(initializer: Initializer<State>, debugFn?: DebugFn<S
     let state: State;
     const listeners = new Set<Listener>();
 
+    // Immutable state updation
     const setState: SetState<State> = (action) => {
         const partiallyUpdatedState = action(state);
         if (!compareUtils.deepEqual<State>(partiallyUpdatedState, state)) {
@@ -19,12 +20,34 @@ const createStore = <State>(initializer: Initializer<State>, debugFn?: DebugFn<S
         }
     }
 
+    // Mutable state updation
+    const updateState: UpdateState<State> = (action) => {
+        let changed = false;
+        const proxyState = new Proxy(state as object, {
+            set(target: any, prop: string, value: any) {
+                if (target[prop] !== value) {
+                    changed = true;
+                }
+                target[prop] = value;
+                return true;
+            }
+        })
+        action(proxyState);
+        if (changed) {
+            if (debugFn) {
+                // We lose the prev and updated state details with immutable updates
+                debugFn(state);
+            }
+            listeners.forEach((listener) => listener());
+        }
+    }
+
     const subscribe = (callback: () => void) => {
         listeners.add(callback);
         return () => listeners.delete(callback);
     }
 
-    state = initializer(setState);
+    state = initializer(setState, updateState);
 
     const useStore = <Result>(selector: Selector<State, Result>): Result => {
         const prevSelectionRef = useRef<Result>(selector(state));
