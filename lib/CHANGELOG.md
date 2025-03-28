@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.6.0](https://github.com/rushdynamic/avastha/compare/v0.5.4...v0.6.0) (2025-03-28)
+
+
+### Features
+
+* support mutable actions ([6709170](https://github.com/rushdynamic/avastha/commit/6709170bf1f12eb1c5391ca66c1c991338f794cb))
+
+
+### Bug Fixes
+
+* deep comparison in useStore ([b0233a1](https://github.com/rushdynamic/avastha/commit/b0233a15d116d2c1b8434618f613d195e20561d8))
+* recursively create proxy for nested state during mutable updates ([0aa7c1d](https://github.com/rushdynamic/avastha/commit/0aa7c1de4c80e674b2fe3241404b6131973ebbbf))
+* use deep comparison in useSyncExternalStore selector ([31bc1a0](https://github.com/rushdynamic/avastha/commit/31bc1a03e58fc99358f096e4e960b99315f420ec))
+
 ## [0.5.4](https://github.com/rushdynamic/avastha/compare/v0.5.3...v0.5.4) (2025-03-26)
 
 
