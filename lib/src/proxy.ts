@@ -1,7 +1,6 @@
-type Changed = { status: boolean }
-type GetProxyWithStatus = <State>(state: State) => { proxyState: State, changed: Changed }
+import { ProxyState } from "./types"
 
-const getProxyHandler = (changed: Changed) => {
+const getProxyHandler = (changed: ProxyState.Changed) => {
     return {
         get(target: any, key: any) {
             if (typeof target[key] === 'object' && target[key] !== null) {
@@ -20,8 +19,8 @@ const getProxyHandler = (changed: Changed) => {
     }
 }
 
-const getProxyWithStatus: GetProxyWithStatus = (state) => {
-    let changed: Changed = { status: false }
+const getProxyWithStatus: ProxyState.GetProxyWithStatus = (state) => {
+    let changed: ProxyState.Changed = { status: false }
     return {
         proxyState: new Proxy(state as object, getProxyHandler(changed)),
         changed: changed
