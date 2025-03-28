@@ -7,8 +7,8 @@
   "files": [
     "dist"
   ],
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "module": "dist/store.js",
+  "types": "dist/store.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rushdynamic/avastha.git"

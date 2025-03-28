@@ -9,9 +9,9 @@ export default defineConfig({
   })],
   build: {
     lib: {
-      entry: "src/index.ts",
+      entry: "src/store.ts",
       name: "avastha",
-      fileName: "index",
+      fileName: "store",
     },
     emptyOutDir: true,
     rollupOptions: {
