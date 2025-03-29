@@ -1,0 +1,4 @@
+cd ./lib
+
+echo "Formatting staged files using Prettier"
+npx lint-staged
