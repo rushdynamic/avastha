@@ -26,6 +26,6 @@ const deepEqual = <State>(a: State | Partial<State>, b: State | Partial<State>):
 
     // If b has more keys or equal keys, check if a is a submap of b
     return keysA.every((k) => k in b && deepEqual(a[k as keyof State], b[k as keyof State]));
-}
+};
 
 export { deepEqual };

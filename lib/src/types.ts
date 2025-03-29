@@ -5,7 +5,10 @@ export namespace Store {
     export type Listener = () => void;
     export type SetState<State> = (nonMutatingAction: NonMutatingAction<State>) => void;
     export type UpdateState<State> = (mutatingAction: MutatingAction<State>) => void;
-    export type Initializer<State> = (setState: SetState<State>, updateState: UpdateState<State>) => State;
+    export type Initializer<State> = (
+        setState: SetState<State>,
+        updateState: UpdateState<State>
+    ) => State;
 }
 
 export namespace Middleware {
@@ -13,6 +16,9 @@ export namespace Middleware {
 }
 
 export namespace ProxyState {
-    export type Changed = { status: boolean }
-    export type GetProxyWithStatus = <State>(state: State) => { proxyState: State, changed: Changed }
+    export type Changed = { status: boolean };
+    export type GetProxyWithStatus = <State>(state: State) => {
+        proxyState: State;
+        changed: Changed;
+    };
 }

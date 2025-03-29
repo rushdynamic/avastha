@@ -3,8 +3,10 @@ import { Store, Middleware } from "./types";
 import getProxyWithStatus from "./proxy";
 import * as compareUtils from "./utils/compare";
 
-const createStore = <State>(initializer: Store.Initializer<State>, debugFn?: Middleware.DebugFn<State>) => {
-
+const createStore = <State>(
+    initializer: Store.Initializer<State>,
+    debugFn?: Middleware.DebugFn<State>
+) => {
     let state: State;
     const listeners = new Set<Store.Listener>();
 
@@ -19,7 +21,7 @@ const createStore = <State>(initializer: Store.Initializer<State>, debugFn?: Mid
             state = updatedState;
             listeners.forEach((listener) => listener());
         }
-    }
+    };
 
     // Mutable state updation
     const updateState: Store.UpdateState<State> = (action) => {
@@ -32,35 +34,32 @@ const createStore = <State>(initializer: Store.Initializer<State>, debugFn?: Mid
             }
             listeners.forEach((listener) => listener());
         }
-    }
+    };
 
     const subscribe = (callback: () => void) => {
         listeners.add(callback);
         return () => listeners.delete(callback);
-    }
+    };
 
     state = initializer(setState, updateState);
 
     const useStore = <Result>(selector: Store.Selector<State, Result>): Result => {
         const prevSelectionRef = useRef<Result>(selector(state));
-        return useSyncExternalStore(
-            subscribe,
-            () => {
-                const newSelection = selector(state);
-                // TODO: figure out if deep comparison is required here or not
-                // What if the user is trying to select a deeply nested map? Won't shallow comparison always return false?
-                // TODO: check out performance hit with doing deep comparison
-                if (compareUtils.deepEqual(newSelection, prevSelectionRef.current)) {
-                    return prevSelectionRef.current;
-                }
-                prevSelectionRef.current = newSelection;
-                return newSelection;
+        return useSyncExternalStore(subscribe, () => {
+            const newSelection = selector(state);
+            // TODO: figure out if deep comparison is required here or not
+            // What if the user is trying to select a deeply nested map? Won't shallow comparison always return false?
+            // TODO: check out performance hit with doing deep comparison
+            if (compareUtils.deepEqual(newSelection, prevSelectionRef.current)) {
+                return prevSelectionRef.current;
             }
-        )
-    }
+            prevSelectionRef.current = newSelection;
+            return newSelection;
+        });
+    };
 
     return useStore;
-}
+};
 
 export { createStore as create };
-export * as debug from "./middleware/debug"
+export * as debug from "./middleware/debug";
