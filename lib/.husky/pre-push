@@ -1,0 +1,4 @@
+echo "Running Husky pre-push scripts"
+cd ./lib
+
+npm run test
