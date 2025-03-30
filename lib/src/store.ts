@@ -13,7 +13,9 @@ const createStore = <State>(
     // Immutable state updation
     const setState: Store.SetState<State> = (action) => {
         const partiallyUpdatedState = action(state);
-        if (!compareUtils.deepEqual<State>(partiallyUpdatedState, state)) {
+        // shallow comparison is enough here because immutable actions
+        // always return a new object
+        if (partiallyUpdatedState !== state) {
             const updatedState = { ...state, ...partiallyUpdatedState };
             if (debugFn) {
                 debugFn(updatedState, state, partiallyUpdatedState);
