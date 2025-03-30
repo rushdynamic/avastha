@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/rushdynamic/avastha/compare/v0.6.0...v0.6.1) (2025-03-30)
+
+
+### Bug Fixes
+
+* remove deep check from setstate ([cff121f](https://github.com/rushdynamic/avastha/commit/cff121fb0155b82b68bd4dfaccbb5e9f9cf204e6))
+
 ## [0.6.0](https://github.com/rushdynamic/avastha/compare/v0.5.4...v0.6.0) (2025-03-28)
 
 ### Features
