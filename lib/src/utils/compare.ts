@@ -2,11 +2,13 @@ const deepEqual = <State>(a: State | Partial<State>, b: State | Partial<State>):
     // If they are the same reference, return true
     if (Object.is(a, b)) return true;
 
+    // If they are not of the same type, return false
+    if (typeof a !== typeof b) {
+        return false;
+    }
+
     // If one is null/undefined and the other isn’t, return false
-    if (
-        (a === null || a === undefined || typeof a !== "object") !==
-        (b === null || b === undefined || typeof b !== "object")
-    ) {
+    if ((a === null || a === undefined) !== (b === null || b === undefined)) {
         return false;
     }
 
@@ -19,12 +21,12 @@ const deepEqual = <State>(a: State | Partial<State>, b: State | Partial<State>):
     const keysA = Object.keys(a);
     const keysB = Object.keys(b);
 
-    // If a has more keys than b, check if b is a submap of a
-    if (keysA.length > keysB.length) {
-        return keysB.every((k) => k in a && deepEqual(a[k as keyof State], b[k as keyof State]));
+    // Sub-maps are not valid
+    if (keysA.length !== keysB.length) {
+        return false;
     }
 
-    // If b has more keys or equal keys, check if a is a submap of b
+    // Recursively compare only if they have equal number of keys
     return keysA.every((k) => k in b && deepEqual(a[k as keyof State], b[k as keyof State]));
 };
 

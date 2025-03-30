@@ -1,7 +1,6 @@
-import { describe, it, expect, jest } from "@jest/globals";
+import { describe, it, expect } from "@jest/globals";
 import { renderHook, act } from "@testing-library/react";
 import { create } from "../../src/store";
-import { Store } from "../../src/types";
 
 describe("createStore", () => {
     it("should initialize store with given state", () => {

@@ -1,5 +1,5 @@
-import getProxyWithStatus from "../../src/proxy";
 import { describe, it, expect } from "@jest/globals";
+import getProxyWithStatus from "../../src/proxy";
 
 describe("getProxyWithStatus", () => {
     it("detects a change when a property is modified", () => {
