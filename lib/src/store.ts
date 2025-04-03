@@ -1,35 +1,47 @@
 import { useSyncExternalStore, useRef } from "react";
-import { Initializer, Listener, Selector, SetState, UpdateState, DebugFn } from "./types";
+import {
+    Initializer,
+    Listener,
+    StateSelector,
+    ActionSelector,
+    SetState,
+    UpdateState,
+    ExtractState,
+    DebugFn
+} from "./types";
 import getProxyWithStatus from "./proxy";
 import * as compareUtils from "./utils/compare";
 
-const createStore = <State>(initializer: Initializer<State>, debugFn?: DebugFn<State>) => {
-    let state: State;
+const createStore = <Store extends { state: any; actions: any }>(
+    initializer: Initializer<Store>,
+    debugFn?: DebugFn<ExtractState<Store>>
+) => {
+    let store: Store;
     const listeners = new Set<Listener>();
 
     // Immutable state updation
-    const setState: SetState<State> = (action) => {
-        const partiallyUpdatedState = action(state);
+    const setState: SetState<ExtractState<Store>> = (action) => {
+        const partiallyUpdatedState = action(store.state);
         // shallow comparison is enough here because immutable actions
         // always return a new object
-        if (partiallyUpdatedState !== state) {
-            const updatedState = { ...state, ...partiallyUpdatedState };
+        if (partiallyUpdatedState !== store.state) {
+            const updatedState = { ...store.state, ...partiallyUpdatedState };
             if (debugFn) {
-                debugFn(updatedState, state, partiallyUpdatedState);
+                debugFn(updatedState, store.state, partiallyUpdatedState);
             }
-            state = updatedState;
+            store.state = updatedState;
             listeners.forEach((listener) => listener());
         }
     };
 
     // Mutable state updation
-    const updateState: UpdateState<State> = (action) => {
-        const { proxyState, changed } = getProxyWithStatus(state);
+    const updateState: UpdateState<ExtractState<Store>> = (action) => {
+        const { proxyState, changed } = getProxyWithStatus(store.state);
         action(proxyState);
         if (changed.status) {
             if (debugFn) {
                 // We lose the prev and updated state details with immutable updates
-                debugFn(state);
+                debugFn(store.state);
             }
             listeners.forEach((listener) => listener());
         }
@@ -40,12 +52,12 @@ const createStore = <State>(initializer: Initializer<State>, debugFn?: DebugFn<S
         return () => listeners.delete(callback);
     };
 
-    state = initializer(setState, updateState);
+    store = initializer(setState, updateState);
 
-    const useStore = <Result>(selector: Selector<State, Result>): Result => {
-        const prevSelectionRef = useRef<Result>(selector(state));
+    const useState = <Result>(selector: StateSelector<Store, Result>): Result => {
+        const prevSelectionRef = useRef<Result>(selector(store.state));
         return useSyncExternalStore(subscribe, () => {
-            const newSelection = selector(state);
+            const newSelection = selector(store.state);
             // TODO: figure out if deep comparison is required here or not
             // What if the user is trying to select a deeply nested map? Won't shallow comparison always return false?
             // TODO: check out performance hit with doing deep comparison
@@ -57,7 +69,11 @@ const createStore = <State>(initializer: Initializer<State>, debugFn?: DebugFn<S
         });
     };
 
-    return useStore;
+    const useAction = <Result>(selector: ActionSelector<Store, Result>): Result => {
+        return selector(store.actions);
+    };
+
+    return { useState, useAction };
 };
 
 export { createStore as create };
