@@ -8,8 +8,9 @@ import './app.css';
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
 		<BasicExample />
-		{/* <hr />
-    <NestedStateExample />
+		<hr />
+		<NestedStateExample />
+		{/* 
     <hr />
     <MultipleSlicesExample /> */}
 	</StrictMode>
