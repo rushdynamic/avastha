@@ -12,7 +12,7 @@ import {
 import getProxyWithStatus from "./proxy";
 import * as compareUtils from "./utils/compare";
 
-const createStore = <Store extends { state: any; actions: any }>(
+const createStore = <Store extends { state: any; actions?: any }>(
     initializer: Initializer<Store>,
     debugFn?: DebugFn<ExtractState<Store>>
 ) => {

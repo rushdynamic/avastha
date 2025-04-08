@@ -1,7 +1,7 @@
 type NonMutatingAction<State> = (state: State) => Partial<State>;
 type MutatingAction<State> = (state: State) => void;
 export type ExtractState<T> = T extends { state: infer S } ? S : never;
-export type ExtractActions<T> = T extends { actions: infer S } ? S : never;
+export type ExtractActions<T> = T extends { actions?: infer S } ? S : never;
 export type StateSelector<Store, Result> = (state: ExtractState<Store>) => Result;
 export type ActionSelector<Store, Result> = (actions: ExtractActions<Store>) => Result;
 export type Listener = () => void;
