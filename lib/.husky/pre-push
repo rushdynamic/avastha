@@ -2,4 +2,5 @@ echo "Running Husky pre-push scripts"
 cd ./lib
 
 npx prettier "*.{js,ts,tsx,json}" --check
+npm run build
 npm run test
