@@ -10,8 +10,7 @@ createRoot(document.getElementById('root')!).render(
 		<BasicExample />
 		<hr />
 		<NestedStateExample />
-		{/* 
-    <hr />
-    <MultipleSlicesExample /> */}
+		<hr />
+		<MultipleSlicesExample />
 	</StrictMode>
 );

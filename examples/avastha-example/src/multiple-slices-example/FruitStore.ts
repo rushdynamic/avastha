@@ -1,20 +1,35 @@
-import { create } from "avastha";
+import { create } from 'avastha';
 
 type Fruit = {
-    name: string,
-    quantity: number,
-}
+	name: string;
+	quantity: number;
+};
+
+type FruitState = {
+	orange: Fruit;
+	apple: Fruit;
+};
+
+type FruitActions = {
+	setAppleQty: (quantity: number) => void;
+};
 
 type FruitStore = {
-    orange: Fruit,
-    apple: Fruit,
-    setAppleQty: (quantity: number) => void;
-}
+	state: FruitState;
+	actions: FruitActions;
+};
 
-const useFruitStore = create<FruitStore>((set) => ({
-    orange: { name: "Orange", quantity: 5 },
-    apple: { name: "Apple", quantity: 2 },
-    setAppleQty: (quantity: number) => set((state) => { return { ...state, apple: { ...state.apple, quantity: quantity } } })
-}))
+const fruitStore = create<FruitStore>((set) => ({
+	state: {
+		orange: { name: 'Orange', quantity: 5 },
+		apple: { name: 'Apple', quantity: 2 },
+	},
+	actions: {
+		setAppleQty: (quantity: number) =>
+			set((state) => {
+				return { ...state, apple: { ...state.apple, quantity: quantity } };
+			}),
+	},
+}));
 
-export default useFruitStore
+export default fruitStore;

@@ -1,7 +1,5 @@
-import useFruitStore from "./FruitStore"
+import fruitStore from './FruitStore';
 
 export default function Orange() {
-    return (
-        <div>Apple</div>
-    )
+	return <div>Apple</div>;
 }
