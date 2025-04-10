@@ -12,7 +12,7 @@ import {
 import getProxyWithStatus from "./proxy";
 import * as compareUtils from "./utils/compare";
 
-const createStore = <Store extends { state: any; actions?: any }>(
+const createStore = <Store extends { state: any; actions?: any; transforms?: any }>(
     initializer: Initializer<Store>,
     debugFn?: DebugFn<ExtractState<Store>>
 ) => {
@@ -40,7 +40,7 @@ const createStore = <Store extends { state: any; actions?: any }>(
         action(proxyState);
         if (changed.status) {
             if (debugFn) {
-                // We lose the prev and updated state details with immutable updates
+                // We lose the prev and updated state details with mutable updates
                 debugFn(store.state);
             }
             listeners.forEach((listener) => listener());
@@ -54,10 +54,19 @@ const createStore = <Store extends { state: any; actions?: any }>(
 
     store = initializer(setState, updateState);
 
+    const transform = <Result>(selector: StateSelector<Store, Result>, store: Store) => {
+        const state = store.state;
+        const slice = selector(state);
+        const transforms = store.transforms;
+        if (transforms === undefined) return slice;
+        const transformer = selector(transforms);
+        return typeof transformer === "function" ? transformer(slice) : slice;
+    };
+
     const useState = <Result>(selector: StateSelector<Store, Result>): Result => {
-        const prevSelectionRef = useRef<Result>(selector(store.state));
+        const prevSelectionRef = useRef<Result>(transform(selector, store));
         return useSyncExternalStore(subscribe, () => {
-            const newSelection = selector(store.state);
+            const newSelection = transform(selector, store);
             // TODO: figure out if deep comparison is required here or not
             // What if the user is trying to select a deeply nested map? Won't shallow comparison always return false?
             // TODO: check out performance hit with doing deep comparison
