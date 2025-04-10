@@ -72,4 +72,77 @@ describe("createStore", () => {
 
         expect(result.current).toBe(6);
     });
+
+    it("should return transformed state during immutable update", () => {
+        type CounterState = {
+            state: {
+                count: number;
+            };
+            actions: {
+                increment: () => void;
+            };
+            transforms: {
+                count: (count: number) => number;
+            };
+        };
+
+        const counterStore = create<CounterState>((setState, _updateState) => ({
+            state: { count: 2 },
+            actions: {
+                increment: () => setState((state) => ({ ...state, count: state.count + 1 }))
+            },
+            transforms: {
+                count: (count) => count * 5
+            }
+        }));
+
+        const {
+            result: { current: increment }
+        } = renderHook(() => counterStore.useAction((actions) => actions.increment));
+        const { result } = renderHook(() => counterStore.useState((state) => state.count));
+
+        act(() => {
+            increment();
+        });
+
+        expect(result.current).toBe(15);
+    });
+
+    it("should return transformed state during mutable update", () => {
+        type CounterState = {
+            state: {
+                count: number;
+            };
+            actions: {
+                incrementMutable: () => void;
+            };
+            transforms: {
+                count: (count: number) => number;
+            };
+        };
+
+        const counterStore = create<CounterState>((_setState, updateState) => ({
+            state: { count: 2 },
+            actions: {
+                incrementMutable: () =>
+                    updateState((state) => {
+                        state.count += 1;
+                    })
+            },
+            transforms: {
+                count: (count) => count * 5
+            }
+        }));
+
+        const {
+            result: { current: incrementMutable }
+        } = renderHook(() => counterStore.useAction((actions) => actions.incrementMutable));
+        const { result } = renderHook(() => counterStore.useState((state) => state.count));
+
+        act(() => {
+            incrementMutable();
+        });
+
+        expect(result.current).toBe(15);
+    });
 });
