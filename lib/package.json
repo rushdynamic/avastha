@@ -1,7 +1,7 @@
 {
     "name": "avastha",
     "author": "Gokul Syam (https://gokul.cc/)",
-    "version": "0.6.1",
+    "version": "0.7.0",
     "description": "A minimal state management library for React",
     "type": "module",
     "files": [

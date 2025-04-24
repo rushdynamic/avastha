@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.7.0](https://github.com/rushdynamic/avastha/compare/v0.6.1...v0.7.0) (2025-04-24)
+
+
+### Features
+
+* support separate selectors for state and actions ([1557e81](https://github.com/rushdynamic/avastha/commit/1557e8156671458c97f726582f5128506d057f12))
+* support transforms in store ([328c423](https://github.com/rushdynamic/avastha/commit/328c423ea6d1ca340bd6b64feadc5eb13aeaf780))
+
+
+### Bug Fixes
+
+* failing tests due to new store structure ([82fb119](https://github.com/rushdynamic/avastha/commit/82fb11932cdf540f27395c7ace782b34e84272a4))
+* make `actions` key optional in store definition ([8b88d43](https://github.com/rushdynamic/avastha/commit/8b88d430f621d25bb9b26f34c55b335e6b8c1a48))
+
 ## [0.6.1](https://github.com/rushdynamic/avastha/compare/v0.6.0...v0.6.1) (2025-03-30)
 
 
