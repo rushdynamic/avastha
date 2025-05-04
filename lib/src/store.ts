@@ -59,8 +59,28 @@ const createStore = <Store extends { state: any; actions?: any; transforms?: any
         const slice = selector(state);
         const transforms = store.transforms;
         if (transforms === undefined) return slice;
-        const transformer = selector(transforms);
-        return typeof transformer === "function" ? transformer(slice) : slice;
+
+        const proxy = new Proxy(state, {
+            get(target, prop: keyof typeof state) {
+                const original = target[prop];
+                const transformer = transforms[prop];
+                if (typeof transformer === "function" && original !== null) {
+                    const transformed = transformer(original);
+
+                    // only merge if transformed is an object
+                    if (typeof transformed === "object" && transformed !== null) {
+                        return { ...original, ...transformed };
+                    }
+                    // return transformed value directly without merging if not an object
+                    else if (transformed !== null && typeof transformed !== "object") {
+                        return transformed;
+                    }
+                }
+                // if no transformer was found, return the original selected value
+                return original;
+            }
+        });
+        return selector(proxy);
     };
 
     const useState = <Result>(selector: StateSelector<Store, Result>): Result => {
