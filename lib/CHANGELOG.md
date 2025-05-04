@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/rushdynamic/avastha/compare/v0.7.0...v0.7.1) (2025-05-04)
+
+
+### Bug Fixes
+
+* support transforms for nested values ([99a03f9](https://github.com/rushdynamic/avastha/commit/99a03f966adfd263f95ce3f9b71799083059592c))
+
 ## [0.7.0](https://github.com/rushdynamic/avastha/compare/v0.6.1...v0.7.0) (2025-04-24)
 
 
