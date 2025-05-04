@@ -146,3 +146,242 @@ describe("createStore", () => {
         expect(result.current).toBe(15);
     });
 });
+
+describe("createStore with nested state transforms", () => {
+    type UserFullName = {
+        firstName: string;
+        lastName: string;
+    };
+
+    type User = {
+        name: UserFullName;
+        id: number;
+    };
+
+    type UserState = {
+        user: User;
+    };
+
+    type UserActions = {
+        setUserFirstName: (firstName: string) => void;
+        setUserLastName: (lastName: string) => void;
+        setUserFirstNameMutable: (firstName: string) => void;
+    };
+
+    type UserTransforms = {
+        user: (user: User) => Partial<User>;
+    };
+
+    type UserStore = {
+        state: UserState;
+        actions: UserActions;
+        transforms: UserTransforms;
+    };
+
+    it("should apply transform to nested fields correctly", () => {
+        const userStore = create<UserStore>((setState, updateState) => {
+            return {
+                state: {
+                    user: {
+                        name: { firstName: "Rush", lastName: "Dynamic" },
+                        id: 1
+                    }
+                },
+                actions: {
+                    setUserFirstName: (firstName) =>
+                        setState((state) => ({
+                            user: {
+                                ...state.user,
+                                name: { ...state.user.name, firstName }
+                            }
+                        })),
+                    setUserLastName: (lastName) =>
+                        setState((state) => ({
+                            user: {
+                                ...state.user,
+                                name: { ...state.user.name, lastName }
+                            }
+                        })),
+                    setUserFirstNameMutable: (firstName) =>
+                        updateState((state) => {
+                            state.user.name.firstName = firstName;
+                        })
+                },
+                transforms: {
+                    user: (user) => {
+                        return {
+                            name: {
+                                firstName: user.name.lastName,
+                                lastName: user.name.firstName
+                            }
+                        };
+                    }
+                }
+            };
+        });
+
+        const { result } = renderHook(() =>
+            userStore.useState((state) => state.user.name.firstName)
+        );
+
+        // transform swaps first and last names, so we should see "Dynamic"
+        expect(result.current).toBe("Dynamic");
+    });
+
+    it("should reflect updated name after action", () => {
+        const userStore = create<UserStore>((setState, updateState) => {
+            return {
+                state: {
+                    user: {
+                        name: { firstName: "Rush", lastName: "Dynamic" },
+                        id: 1
+                    }
+                },
+                actions: {
+                    setUserFirstName: (firstName) =>
+                        setState((state) => ({
+                            user: {
+                                ...state.user,
+                                name: { ...state.user.name, firstName }
+                            }
+                        })),
+                    setUserLastName: (lastName) =>
+                        setState((state) => ({
+                            user: {
+                                ...state.user,
+                                name: { ...state.user.name, lastName }
+                            }
+                        })),
+                    setUserFirstNameMutable: (firstName) =>
+                        updateState((state) => {
+                            state.user.name.firstName = firstName;
+                        })
+                },
+                transforms: {
+                    user: (user) => {
+                        return {
+                            name: {
+                                firstName: user.name.lastName,
+                                lastName: user.name.firstName
+                            }
+                        };
+                    }
+                }
+            };
+        });
+
+        const { result: firstName } = renderHook(() =>
+            userStore.useState((state) => state.user.name.firstName)
+        );
+
+        act(() => {
+            userStore.useAction((actions) => actions.setUserLastName("Cohle"));
+        });
+
+        expect(firstName.current).toBe("Cohle");
+    });
+
+    it("should reflect mutable updates", () => {
+        const userStore = create<UserStore>((setState, updateState) => {
+            return {
+                state: {
+                    user: {
+                        name: { firstName: "Rush", lastName: "Dynamic" },
+                        id: 1
+                    }
+                },
+                actions: {
+                    setUserFirstName: (firstName) =>
+                        setState((state) => ({
+                            user: {
+                                ...state.user,
+                                name: { ...state.user.name, firstName }
+                            }
+                        })),
+                    setUserLastName: (lastName) =>
+                        setState((state) => ({
+                            user: {
+                                ...state.user,
+                                name: { ...state.user.name, lastName }
+                            }
+                        })),
+                    setUserFirstNameMutable: (firstName) =>
+                        updateState((state) => {
+                            state.user.name.firstName = firstName;
+                        })
+                },
+                transforms: {
+                    user: (user) => {
+                        return {
+                            name: {
+                                firstName: user.name.lastName,
+                                lastName: user.name.firstName
+                            }
+                        };
+                    }
+                }
+            };
+        });
+
+        const { result: firstName } = renderHook(() =>
+            userStore.useState((state) => state.user.name.firstName)
+        );
+
+        act(() => {
+            userStore.useAction((actions) => actions.setUserFirstNameMutable("Rust"));
+        });
+
+        // transform swaps first and last name, so we expect the new first name to be "Dynamic"
+        expect(firstName.current).toBe("Dynamic");
+    });
+
+    it("should return the full transformed user", () => {
+        const userStore = create<UserStore>((setState, updateState) => {
+            return {
+                state: {
+                    user: {
+                        name: { firstName: "Rush", lastName: "Dynamic" },
+                        id: 1
+                    }
+                },
+                actions: {
+                    setUserFirstName: (firstName) =>
+                        setState((state) => ({
+                            user: {
+                                ...state.user,
+                                name: { ...state.user.name, firstName }
+                            }
+                        })),
+                    setUserLastName: (lastName) =>
+                        setState((state) => ({
+                            user: {
+                                ...state.user,
+                                name: { ...state.user.name, lastName }
+                            }
+                        })),
+                    setUserFirstNameMutable: (firstName) =>
+                        updateState((state) => {
+                            state.user.name.firstName = firstName;
+                        })
+                },
+                transforms: {
+                    user: (user) => {
+                        return {
+                            name: {
+                                firstName: user.name.lastName,
+                                lastName: user.name.firstName
+                            }
+                        };
+                    }
+                }
+            };
+        });
+
+        const { result } = renderHook(() => userStore.useState((state) => state.user));
+
+        expect(result.current.name).toEqual({
+            firstName: "Dynamic",
+            lastName: "Rush"
+        });
+    });
+});
