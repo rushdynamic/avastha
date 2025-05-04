@@ -105,4 +105,4 @@ You can explore more usage examples in the `examples/avastha-example` directory:
 - Multiple slices
 
 ## 📝 License
-MIT
+[MIT](https://github.com/rushdynamic/avastha/blob/main/LICENSE.md)
