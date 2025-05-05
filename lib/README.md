@@ -3,6 +3,12 @@
 Avastha is a minimal and flexible state management library for React, with support for both immutable and mutable state updates.
 </div>
 <br/>
+
+<p align='center'>
+<img src="https://github.com/rushdynamic/avastha/blob/main/assets/logo2.png?raw=true"/>
+</p>
+
+<br/>
 <p align='right'>
 <img src='https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg' height=24 width=24 alt='typescript logo'/>
 <img src='https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg' height=24 width=24 alt='react logo'/>
